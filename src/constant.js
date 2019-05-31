@@ -2,6 +2,11 @@ import { Dimensions } from 'react-native';
 
 const { height, width } = Dimensions.get('window');
 
+export const APP = {
+  HEIGHT: height,
+  WIDTH: width
+};
+
 export const BLOCK = {
   CONTENT_SIZE: width * 0.2,
   MARGIN: width * 0.05,

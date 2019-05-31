@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { Button, Header } from 'react-native-elements';
 
-import { BLOCK } from './constant';
-import Block from './components/Block';
-import BlockAdd from './components/BlockAdd';
-import BlockOverlay from './components/BlockOverlay';
+import { BLOCK } from '../constant';
+import Block from './Block';
+import BlockAdd from './BlockAdd';
+import BlockOverlay from './BlockOverlay';
 
-/************* main app **************/
-
-class App extends Component {
+class MainScreen extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
         <View style={styles.bg}>
+          <Header
+            leftComponent={{ icon: 'menu', color: '#fff' }}
+            centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+            rightComponent={{ icon: 'home', color: '#fff' }}
+          />
           <View style={styles.container}>
             <BlockOverlay/>
             {
@@ -29,6 +33,12 @@ class App extends Component {
               )
             }
             <BlockAdd/>
+          </View>
+          <View style={styles.endBtn}>
+            <Button
+              title="End the Day"
+              onPress={() => this.props.navigation.navigate('Modal')}
+            />
           </View>
         </View>
     );
@@ -48,13 +58,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'bisque'
   },
   container: {
-    flex: 1,
+    flex: 3,
     flexDirection: 'row',
     flexWrap: 'wrap',
     padding: BLOCK.MARGIN,
     alignItems: 'center',
-    // alignContent: 'center',
+    alignContent: 'center',
   },
+  endBtn: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(MainScreen);
