@@ -4,7 +4,8 @@ const { height, width } = Dimensions.get('window');
 
 export const APP = {
   HEIGHT: height,
-  WIDTH: width
+  WIDTH: width,
+  HOUR: 3600000
 };
 
 export const BLOCK = {
@@ -21,8 +22,21 @@ export const CATEGORY = {
   PHONE: 'PHONE',
   GAME: 'GAME',
   MUSIC: 'MUSIC',
-  FUN: 'FUN'
+  FUN: 'FUN',
+  UNDISTRIBUTED: 'UNDISTRIBUTED'
 };
+
+export const CATEGORY_COLOR = {
+  STUDY: 'dodgerblue',
+  WORK: 'lightslategrey',
+  ZEN: 'coral',
+  PHONE: 'gold',
+  GAME: 'blueviolet',
+  MUSIC: 'lawngreen',
+  FUN: 'olive',
+  UNDISTRIBUTED: 'whitesmoke'
+};
+
 
 export const OVERLAY = {
   OVERLAY_SIZE: height * 0.6

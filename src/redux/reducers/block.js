@@ -1,17 +1,17 @@
 import { ADD_BLOCK, START_BLOCK, STOP_BLOCK} from "../actionTypes";
 import { BlockModel } from "../../models";
-import { CATEGORY } from "../../constant";
+import { APP, CATEGORY } from "../../constant";
 
 const example = [
-  new BlockModel('A', CATEGORY.GAME),
-  new BlockModel('A', CATEGORY.ZEN),
-  new BlockModel('A', CATEGORY.WORK),
-  new BlockModel('A', CATEGORY.STUDY),
+  new BlockModel('A', CATEGORY.GAME, 2*APP.HOUR),
+  new BlockModel('A', CATEGORY.ZEN, 2*APP.HOUR),
+  new BlockModel('A', CATEGORY.WORK, 2*APP.HOUR),
+  new BlockModel('A', CATEGORY.STUDY, 2*APP.HOUR),
 ];
 
 const initialState = {
   // todo get these from localStorage
-  blocks: []
+  blocks: example
 };
 
 export default function(state = initialState, action) {
