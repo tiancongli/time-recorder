@@ -3,7 +3,7 @@ import { Alert, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { connect } from 'react-redux';
 
 import { startBlock, stopBlock } from '../redux/actions';
-import { BLOCK, CATEGORY, CATEGORY_COLOR } from '../constant';
+import { BLOCK, CATEGORY_BG } from '../constant';
 import { getShowTime } from '../utils';
 
 class Block extends Component {
@@ -97,27 +97,7 @@ const styles = StyleSheet.create({
   blockText: {
     fontSize: BLOCK.TEXT_SIZE
   },
-  [CATEGORY.STUDY]: {
-    backgroundColor: CATEGORY_COLOR.STUDY,
-  },
-  [CATEGORY.WORK]: {
-    backgroundColor: CATEGORY_COLOR.WORK,
-  },
-  [CATEGORY.ZEN]: {
-    backgroundColor: CATEGORY_COLOR.ZEN
-  },
-  [CATEGORY.PHONE]: {
-    backgroundColor: CATEGORY_COLOR.PHONE
-  },
-  [CATEGORY.GAME]: {
-    backgroundColor: CATEGORY_COLOR.GAME
-  },
-  [CATEGORY.MUSIC]: {
-    backgroundColor: CATEGORY_COLOR.MUSIC
-  },
-  [CATEGORY.FUN]: {
-    backgroundColor: CATEGORY_COLOR.FUN
-  },
+  ...CATEGORY_BG
 });
 
 export default connect(null, { startBlock, stopBlock })(Block);

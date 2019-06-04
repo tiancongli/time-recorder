@@ -3,37 +3,12 @@ import { Text, View, StyleSheet } from 'react-native';
 import { connect} from 'react-redux';
 import { Header } from 'react-native-elements';
 
-import { APP, CATEGORY } from '../constant';
 import Pie from '../components/Pie';
 
 
 class DayModalScreen extends Component {
   constructor(props) {
     super(props);
-    this.categories = {};
-    this.createDailyReport();
-  }
-
-  createDailyReport() {
-    // sum up category proportions
-    this.props.blocks.map(block => {
-      if (!(block.category in this.categories)) {
-        this.categories[block.category] = 0;
-      }
-      this.categories[block.category] += block.acc;
-    });
-
-    // change milisecs to hour
-    let left = 24 - this.props.sleepHr;
-    for (var key in this.categories) {
-      this.categories[key] = Math.round( (this.categories[key] / APP.HOUR) * 100 ) / 100;
-      left -= this.categories[key];
-    }
-
-    // assign undistributed time if existed
-    if(left > 0) {
-      this.categories[CATEGORY.UNDISTRIBUTED] = left;
-    } 
   }
 
   render() {
@@ -51,7 +26,7 @@ class DayModalScreen extends Component {
           centerComponent={{ text: 'Report', style: { color: '#fff' } }}
         />
         <View style={ styles.pieContainer }>
-          <Pie data={this.categories}/>
+          <Pie data={this.props.record}/>
         </View>
         <View style={ styles.conclusion }>
           <Text>keep working!</Text>
@@ -62,10 +37,10 @@ class DayModalScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  const { block, userSettings } = state;
-  const blocks = block.blocks;
-  const sleepHr = userSettings.sleepHr;
-  return { blocks, sleepHr };
+  let { records } = state;
+  records = records.records;
+  const record = records[records.length-1];
+  return { record };
 };
 
 const styles = StyleSheet.create({

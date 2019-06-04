@@ -3,15 +3,51 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Header } from 'react-native-elements';
 
-import { BLOCK } from '../constant';
+import { APP, BLOCK, CATEGORY } from '../constant';
 import Block from './Block';
 import BlockAdd from './BlockAdd';
 import BlockOverlay from './BlockOverlay';
+
+import { addRecord } from '../redux/actions';
 
 class MainScreen extends Component {
   constructor(props) {
     super(props);
   }
+
+  createDailyReport() {
+    let report = {};
+    // initiate report
+    for (var key in CATEGORY) {
+      report[key] = 0;
+    }
+
+    // sum up category proportions
+    this.props.blocks.map(block => {
+      report[block.category] += block.acc;
+    });
+
+    // change milisecs to hour
+    let left = 24 - this.props.sleepHr;
+    for (var key in report) {
+      report[key] = Math.round( (report[key] / APP.HOUR) * 100 ) / 100;
+      left -= report[key];
+    }
+
+    // assign undistributed time if existed
+    if(left > 0) {
+      report[CATEGORY.UNDISTRIBUTED] = left;
+    } 
+
+    return report;
+  }
+
+  endTheDay() {
+    const report = this.createDailyReport();
+    this.props.addRecord(report);
+    this.props.navigation.navigate('Modal');
+  }
+
   render() {
     return (
         <View style={styles.bg}>
@@ -37,7 +73,7 @@ class MainScreen extends Component {
           <View style={styles.endBtn}>
             <Button
               title="End the Day"
-              onPress={() => this.props.navigation.navigate('Modal')}
+              onPress={() => this.endTheDay()}
             />
           </View>
         </View>
@@ -46,9 +82,10 @@ class MainScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  const { block } = state;
+  const { block, userSettings } = state;
   const blocks = block.blocks;
-  return { blocks };
+  const sleepHr = userSettings.sleepHr;
+  return { blocks, sleepHr };
 };
 
 /************* styles ***************** */
@@ -72,4 +109,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(MainScreen);
+export default connect(mapStateToProps, { addRecord })(MainScreen);

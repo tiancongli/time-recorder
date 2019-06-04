@@ -18,11 +18,22 @@ const TodayStack = createStackNavigator(
   }
 );
 
+const RecordStack = createStackNavigator(
+  {
+    RecordMain: { screen: RecordScreen },
+    RecordModal: { screen: DayModalScreen }
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none'
+  }
+);
+
 
 const RootStack = createBottomTabNavigator(
   {
     Today: TodayStack,
-    Records: RecordScreen
+    Records: RecordStack
   },
   {
     tabBarOptions: {

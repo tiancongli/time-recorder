@@ -3,18 +3,20 @@ import { PieChart } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 import { CATEGORY_COLOR, APP } from '../constant';
 
-class Pie extends React.PureComponent {
+export default class Pie extends React.PureComponent {
   render() {
-    const data = Object.entries(this.props.data).map(
-      ([category, amount], index) => ({
-        category,
-        amount,
-        key: index,
-        svg: {
-          fill: CATEGORY_COLOR[category]
-        }
-      })
-    );
+    const data = Object.entries(this.props.data)
+      .filter(([_, amount]) => amount >= 0)
+      .map(
+        ([category, amount], index) => ({
+          category,
+          amount,
+          key: index,
+          svg: {
+            fill: CATEGORY_COLOR[category]
+          }
+        })
+      );
     const Labels = ({ slices, height, width }) => {
       return slices.map((slice, index) => {
         console.log(slice);
@@ -50,5 +52,3 @@ class Pie extends React.PureComponent {
     )
   }
 }
-
-export default Pie
