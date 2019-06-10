@@ -5,17 +5,24 @@ import { connect } from 'react-redux';
 
 import ColorLabel from './ColorLabel';
 import AreaPic from './AreaPic';
+import Container from './Container';
+import { BLOCK } from '../constant';
 
 class RecordScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.header = 'RECORD';
+  }
+
   render() {
     const lastReportDisabled = this.props.records.length == 0 ? true : false;
     return (
-      <View style={styles.container}>
+      <Container header={ this.header }>
         <View style={styles.lastReport}>
           <Button
             icon={
               <Icon
-                name="add-circle-outline"
+                name="remove-red-eye"
                 type="MaterialIcons"
                 size={20}
                 color="white"
@@ -30,10 +37,10 @@ class RecordScreen extends Component {
         <View style={styles.areaContainer}>
           <AreaPic data={this.props.records}/>
         </View>
-        <View>
+        <View style={ styles.colorLabel }>
           <ColorLabel/>
         </View>
-      </View>
+      </Container>
     );
   }
 }
@@ -45,21 +52,21 @@ const mapStateToProps = state => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
   lastReport: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    margin: 30
+    marginTop: 30,
+    paddingLeft: BLOCK.MARGIN,
+    flex: 1
 
   },
   areaContainer: {
     justifyContent: 'center',
-    marginTop: 30
+    flex: 2
   },
-
+  colorLabel: {
+    flex: 1
+  },
 });
 
 export default connect(mapStateToProps)(RecordScreen);

@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, Header } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 import { APP, BLOCK, CATEGORY } from '../constant';
 import Block from './Block';
 import BlockAdd from './BlockAdd';
 import BlockOverlay from './BlockOverlay';
+import Container from './Container';
 
 import { addRecord } from '../redux/actions';
 
 class MainScreen extends Component {
   constructor(props) {
     super(props);
+    this.header = 'MAIN MENU'
   }
 
   createDailyReport() {
@@ -30,7 +32,7 @@ class MainScreen extends Component {
     // change milisecs to hour
     let left = 24 - this.props.sleepHr;
     for (var key in report) {
-      report[key] = Math.round( (report[key] / APP.HOUR) * 100 ) / 100;
+      report[key] = report[key] / APP.HOUR;
       left -= report[key];
     }
 
@@ -50,33 +52,28 @@ class MainScreen extends Component {
 
   render() {
     return (
-        <View style={styles.bg}>
-          <Header
-            leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-            rightComponent={{ icon: 'home', color: '#fff' }}
-          />
-          <View style={styles.container}>
-            <BlockOverlay/>
-            {
-              this.props.blocks.map(
-                (block, index) => 
-                <Block 
-                  block={block}
-                  bid={index}
-                  key={index}
-                />
-              )
-            }
-            <BlockAdd/>
-          </View>
-          <View style={styles.endBtn}>
-            <Button
-              title="End the Day"
-              onPress={() => this.endTheDay()}
-            />
-          </View>
+      <Container header={this.header}>
+        <BlockOverlay/>
+        <View style={styles.boxes}>
+          {
+            this.props.blocks.map(
+              (block, index) => 
+              <Block 
+                block={block}
+                bid={index}
+                key={index}
+              />
+            )
+          }
+          <BlockAdd/>
         </View>
+        <View style={styles.endBtn}>
+          <Button
+            title="End the Day"
+            onPress={() => this.endTheDay()}
+          />
+        </View>
+      </Container>
     );
   }
 }
@@ -88,13 +85,8 @@ const mapStateToProps = state => {
   return { blocks, sleepHr };
 };
 
-/************* styles ***************** */
 const styles = StyleSheet.create({
-  bg: {
-    flex: 1,
-    backgroundColor: 'bisque'
-  },
-  container: {
+  boxes: {
     flex: 3,
     flexDirection: 'row',
     flexWrap: 'wrap',

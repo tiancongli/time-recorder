@@ -38,7 +38,7 @@ export const CATEGORY_COLOR = {
   [CATEGORY.GAME]: 'blueviolet',
   [CATEGORY.MUSIC]: 'lawngreen',
   [CATEGORY.FUN]: 'olive',
-  [CATEGORY.UNDISTRIBUTED]: 'bisque'
+  [CATEGORY.UNDISTRIBUTED]: '#bbbcbd'
 };
 
 export const CATEGORY_BG = {
@@ -76,7 +76,7 @@ export const CATEGORY_RGB = {
   [CATEGORY.GAME]: [138, 43, 226],
   [CATEGORY.MUSIC]: [124, 252, 0],
   [CATEGORY.FUN]: [128, 128, 0],
-  [CATEGORY.UNDISTRIBUTED]: [255, 228, 196]
+  [CATEGORY.UNDISTRIBUTED]: [187, 188, 189]
 };
 
 

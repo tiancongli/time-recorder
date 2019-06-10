@@ -6,11 +6,11 @@ import { CATEGORY_COLOR, APP } from '../constant';
 export default class Pie extends React.PureComponent {
   render() {
     const data = Object.entries(this.props.data)
-      .filter(([_, amount]) => amount >= 0)
+      .filter(([_, amount]) => amount > 0)
       .map(
         ([category, amount], index) => ({
           category,
-          amount,
+          amount: Math.round(amount*10)/10,
           key: index,
           svg: {
             fill: CATEGORY_COLOR[category]
@@ -19,7 +19,6 @@ export default class Pie extends React.PureComponent {
       );
     const Labels = ({ slices, height, width }) => {
       return slices.map((slice, index) => {
-        console.log(slice);
         const { labelCentroid, pieCentroid, data } = slice;
         return (
           <Text
@@ -33,7 +32,7 @@ export default class Pie extends React.PureComponent {
             // stroke={'black'}
             // strokeWidth={0.1}
           >
-            {data.category}
+            {`${data.amount}hr`}
           </Text>
         )
       })

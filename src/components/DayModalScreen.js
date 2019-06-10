@@ -3,12 +3,14 @@ import { Text, View, StyleSheet } from 'react-native';
 import { connect} from 'react-redux';
 import { Header } from 'react-native-elements';
 
-import Pie from '../components/Pie';
+import Pie from './Pie';
+import ColorLabel from './ColorLabel';
 
 
 class DayModalScreen extends Component {
   constructor(props) {
     super(props);
+    this.header = 'REPORT';
   }
 
   render() {
@@ -23,13 +25,16 @@ class DayModalScreen extends Component {
               onPress: () => this.props.navigation.goBack()
             }
           }
-          centerComponent={{ text: 'Report', style: { color: '#fff' } }}
+          centerComponent={{ text: this.header, style: { color: '#fff' } }}
         />
         <View style={ styles.pieContainer }>
           <Pie data={this.props.record}/>
         </View>
+        <View style={ styles.colorLabel }>
+          <ColorLabel/>
+        </View>
         <View style={ styles.conclusion }>
-          <Text>keep working!</Text>
+          <Text style={ styles.conclusionText }>keep working!</Text>
         </View>
       </View>
     );
@@ -51,10 +56,16 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: 'center'
   },
+  colorLabel: {
+    flex: 0.5
+  },
   conclusion: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+  },
+  conclusionText: {
+    fontSize: 30
   }
 });
 
