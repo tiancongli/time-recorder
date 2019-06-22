@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import MainScreen from './components/MainScreen';
 import DayModalScreen from './components/DayModalScreen';
 import RecordScreen from './components/RecordScreen';
+import SplashScreen from 'react-native-splash-screen';
 
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 
@@ -50,8 +51,16 @@ const RootStack = createBottomTabNavigator(
 
 const AppContainer = createAppContainer(RootStack);
 
-export default (props) => (
-    <Provider store={store}>
-      <AppContainer/>
-    </Provider>
-);
+export default class App extends Component {
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <AppContainer/>
+      </Provider>
+    );
+  }
+}
